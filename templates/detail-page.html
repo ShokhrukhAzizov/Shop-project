@@ -1,0 +1,384 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <title>Pod Talk Free CSS Template by TemplateMo</title>
+
+        <!-- CSS FILES -->        
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&family=Sono:wght@200;300;400;500;700&display=swap" rel="stylesheet">
+                        
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+
+        <link rel="stylesheet" href="css/bootstrap-icons.css">
+
+        <link rel="stylesheet" href="css/owl.carousel.min.css">
+        
+        <link rel="stylesheet" href="css/owl.theme.default.min.css">
+
+        <link href="css/templatemo-pod-talk.css" rel="stylesheet">
+<!--
+
+TemplateMo 584 Pod Talk
+
+https://templatemo.com/tm-584-pod-talk
+
+-->
+    </head>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300&display=swap');
+
+html,
+body {
+    height: 100%
+}
+
+
+
+ .card {
+     position: relative;
+     display: flex;
+     padding:20px;
+     flex-direction: column;
+     min-width: 0;
+     word-wrap: break-word;
+     background-color: #fff;
+     background-clip: border-box;
+     border: 1px solid #d2d2dc;
+     border-radius: 11px;
+     -webkit-box-shadow: 0px 0px 5px 0px rgb(249, 249, 250);
+     -moz-box-shadow: 0px 0px 5px 0px rgba(212, 182, 212, 1);
+     box-shadow: 0px 0px 5px 0px rgb(161, 163, 164)
+ }
+
+.media img{
+      
+    width: 60px;
+    height: 60px;
+}
+
+
+.reply a {
+    
+    text-decoration: none;
+}
+        body {
+    background-color: #f7f6f6
+}
+
+.card {
+    
+    border: none;
+    box-shadow: 5px 6px 6px 2px #e9ecef;
+    border-radius: 4px;
+}
+
+
+.dots{
+
+    height: 4px;
+  width: 4px;
+  margin-bottom: 2px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.badge{
+
+        padding: 7px;
+        padding-right: 9px;
+    padding-left: 16px;
+    box-shadow: 5px 6px 6px 2px #e9ecef;
+}
+
+.user-img{
+
+    margin-top: 4px;
+}
+
+.check-icon{
+
+    font-size: 17px;
+    color: #c3bfbf;
+    top: 1px;
+    position: relative;
+    margin-left: 3px;
+}
+
+.form-check-input{
+    margin-top: 6px;
+    margin-left: -24px !important;
+    cursor: pointer;
+}
+
+
+.form-check-input:focus{
+    box-shadow: none;
+}
+
+
+.icons i{
+
+    margin-left: 8px;
+}
+.reply{
+
+    margin-left: 12px;
+}
+
+.reply small{
+
+    color: #b7b4b4;
+
+}
+
+
+.reply small:hover{
+
+    color: green;
+    cursor: pointer;
+
+}
+
+.zxc{
+    width: 500px;
+    margin-left: 100px;
+    margin-top: 100px;
+    
+}
+
+
+    </style>
+    <body>
+
+        <main>
+             <header class="site-header d-flex flex-column justify-content-center align-items-center">
+                <div class="container">
+                    <div class="row">
+
+                        <div class="col-lg-12 col-12 text-center">
+
+                            <h2 class="mb-0">{{product.title}}</h2>
+                        </div>
+
+                    </div>
+                </div>
+            </header>
+
+
+            <section class="latest-podcast-section section-padding pb-0" id="section_2">
+                <div class="container">
+                    <div class="row justify-content-center">
+
+                        <div class="col-lg-10 col-12">
+                            <div class="section-title-wrap mb-5">
+                                <h4 class="section-title">{{product.category.name}}</h4>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-3 col-12">
+                                    <div class="custom-block-icon-wrap">
+                                        <div class="custom-block-image-wrap custom-block-image-detail-page">
+                                            <img src="{{ product.image.url }}" class="custom-block-image img-fluid" alt="">
+                                        </div>
+                                    </div>
+                                    <form method="post" action="{% url 'like' %}">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="id" value="{{product.id}}" id="">
+                                        <button role type="submit" class="bi-heart me-1"></button>
+                                        <span>{{like}}</span>
+                                </form>
+                                </div>
+
+                                <div class="col-lg-9 col-12">
+                                    <div class="custom-block-info">
+                                        <div class="custom-block-top d-flex mb-1">
+                                            <small>
+                                                <i class="bi-clock-fill custom-icon"></i>
+                                                50 Minutes
+                                            </small>
+                                        </div>
+
+                                        <h2 class="mb-2">{{product.title}}</h2>
+                                        <p>{{product.description}}</p>
+                                        <p>{{product.price}} $</p>
+                                   
+                                        <div class="profile-block profile-detail-block d-flex flex-wrap align-items-center mt-5">
+                                            <button type="button" class="btn btn-success"  data-bs-toggle="modal" data-bs-target="#exampleModalScrollable">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bag-fill" viewBox="0 0 16 16">
+                                  <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5z"></path>
+                                </svg>
+                                                Buy
+                                              </button>
+                                                <button type="button" class="btn btn-secondary">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart4" viewBox="0 0 16 16">
+                                                        <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5zM3.14 5l.5 2H5V5H3.14zM6 5v2h2V5H6zm3 0v2h2V5H9zm3 0v2h1.36l.5-2H12zm1.11 3H12v2h.61l.5-2zM11 8H9v2h2V8zM8 8H6v2h2V8zM5 8H3.89l.5 2H5V8zm0 5a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0z"></path>
+                                                    </svg></button>
+                                                    <form action="post">
+                                                        {% csrf_token %}
+                                                    <a href="{% url 'create_wish_url' product.id %}" class="btn btn-secondary">
+                                                        <input type="hidden" name="id" value="{{wishlist.id}}">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                                            <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"></path>
+                                                        </svg>
+                                                    </a>
+                                                </form>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+            <div class="zxc">
+                <h4 class="section-title">Comments</h4>
+                <br><br><br>
+                {% if user.is_authenticated %}
+            <form method="post" action="{% url 'comment' %}" >
+                {% csrf_token %}
+                <div class="input-group input-group-lg">    
+                    <input name="text" class="form-control"  placeholder="Write your comment" >
+                    <input name="id" value="{{product.id}}" type="hidden" >
+                </div>
+                <br><br>
+                <button type="submit" class="btn btn-success">Submit</button>
+            </form>
+            {% else %}
+            <form action="{% url 'sign_in' %}">
+                <input name="text" class="form-control"  placeholder="Write your comment" >
+            <button type="submit" class="btn btn-success">Submit</button></form>
+            {% endif %}
+        </div>
+            {% for com in comment %}
+            <div class="container mb-5 mt-5">
+			  
+                <div class="card">
+                   <div class="row">
+                       <div class="col-md-12">
+                           <div class="row">
+                               <div class="col-md-12">
+                                   <div class="media">
+                                       <img src="{{ com.user.img.url }}" class="mr-3 rounded-circle" alt="image"  />
+                                       {% if user.image is None %}
+                                       {% endif %}
+                                       <div class="media-body">
+                                           <div class="row">
+                                            <p><b>{{com.user.username}}</b></p>
+                                            <div class="col-8 d-flex">
+                                               <h5></h5>
+                                               <p>{{com.date}}</p>
+                                            </div>
+                                            
+                                            <div class="col-4">
+                                            
+                                            <div class="pull-right reply">
+                                            
+                                           <a href="#"><span><i class="fa fa-reply"></i> reply</span></a>
+                                            
+                                            </div>
+                                            
+                                            </div>
+                                           </div>		
+                                           <h6><strong>{{com.text}}</strong></h6>                                                                                     
+                                           </div>
+                                       </div>
+                                   </div>                                   
+                           </div>
+                       </div>
+                   </div>
+                   </div>
+               </div>
+
+            {% endfor %}
+
+            <section class="related-podcast-section section-padding">
+                <div class="container">
+                    <div class="row">
+                        <div class="section-title-wrap mb-5">
+                        </div>
+                        <div class="col-lg-12 col-12">
+                            <div class="section-title-wrap mb-5">
+                                <h4 class="section-title">Related episodes</h4>
+                            </div>
+                        </div>
+                    {% for pro_list in product_filtered %}
+                        <div class="col-lg-4 col-12 mb-4 mb-lg-0">
+                            <div class="custom-block custom-block-full">
+                                <div class="custom-block-image-wrap">
+                                    <a href="{% url 'product_detail' pro_list.slug %}">
+                                        <img src="{{pro_list.image.url}}" class="custom-block-image img-fluid" alt="">
+                                    </a>
+                                </div>
+                                <div class="custom-block-info">
+                                    <h5 class="mb-2">
+                                        <a href="detail-page.html">
+                                            {{pro_list.title}}
+                                        </a>
+                                    </h5>
+
+                                    <p class="mb-0">{{pro_list.description}}</p>
+
+                                    <div class="custom-block-bottom d-flex justify-content-between mt-3">
+                                        <a href="#" class="bi-heart me-1">
+                                            <span>2.5k</span>
+                                        </a>
+                                        <a href="#" class="bi-chat me-1">
+                                            <span>924k</span>
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <div class="social-share d-flex flex-column ms-auto">
+                                    <a href="{% url 'create_wish_url' pro_list.id %}" class="badge ms-auto">
+                                        <i class="bi-bookmark"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+{% endfor %}        
+                </div>
+            </section>
+        </main>
+        <div class="modal fade" id="exampleModalScrollable" tabindex="-1" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="exampleModalScrollableTitle">{{product.title}}</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <p>This is some placeholder content to show the scrolling behavior for modals. We use repeated line breaks to demonstrate how content can exceed minimum inner height, thereby showing inner scrolling. When content becomes longer than the predefined max-height of modal, content will be cropped and scrollable within the modal.</p>
+                  <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+                  <p>This content should appear at the bottom after you scroll.</p>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-success">Buy</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        <!-- JAVASCRIPT FILES -->
+        <script src="js/jquery.min.js"></script>
+        <script src="js/bootstrap.bundle.min.js"></script>
+        <script src="js/owl.carousel.min.js"></script>
+        <script src="js/custom.js"></script>
+
+    </body>
+</html>
+{% endblock %}
