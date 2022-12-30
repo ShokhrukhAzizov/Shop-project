@@ -19,14 +19,101 @@
 
                         <div class="col-lg-12 col-12 text-center">
 
-                            <h2 class="mb-0">About Pod</h2>
+                            <h2 class="mb-0">My Cart</h2>
                         </div>
 
                     </div>
                 </div>
             </header>           
-            <div class="section-title-wrap mb-4">
+            <!-- <div class="section-title-wrap mb-4">
                 <h4 class="section-title">
+            </div> -->
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3 col-12 mb-5">
+                        <div class="custom-block-icon-wrap">
+                            <div class="custom-block-image-wrap custom-block-image-detail-page">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" fill="currentColor" class="bi bi-bag" viewBox="0 0 16 16">
+                                    <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5z"></path>
+                                  </svg>                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-9 col-12 mb-4">
+                        <div class="custom-block-info">
+                            <div class="custom-block-top d-flex mb-1">
+                                <small class="me-4">
+                                    <a href="#">
+                                        <i class="bi-play"></i>
+                                        Buyurtma berish
+                                    </a>
+                                </small>
+                                <small>
+                                    <i class="bi-clock-fill custom-icon"></i>
+                                    50 Minutes
+                                </small>
+
+                                <small class="ms-auto">Maxsulotlar <span class="badge">{{quantity}}</span></small>
+                            </div>
+                            {% for product in products %}
+                            <div class="profile-block profile-detail-block d-flex flex-wrap align-items-center mt-5">
+                                <div class="d-flex mb-3 mb-lg-0 mb-md-0">
+                                    <img src="{{product.product.image.url}}" class="profile-block-image img-fluid" alt="">
+                                    <p>{{product.product.title}}
+                                        <img src="images/verified.png" class="verified-image img-fluid" alt="">
+                                        <strong>{{product.product.category.name}}</strong>
+                                        <strong>{{product.quantity}}</strong>
+                                    </p>
+                                </div>
+
+                                <ul class="social-icon ms-lg-auto ms-md-auto">
+                                       <li class="social-icon-item">
+                                        <form action="{% url 'add_product_to_card_url' %}" method="post">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="product_id" value="{{product.product.id}}">
+                                            <button type="submit" class="btn btn-outline-secondary">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
+                                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"></path>
+                              </svg>
+                                                <span class="visually-hidden">Button</span>
+                                              </button>
+                                        </form>
+                                    </li>
+                                    <li class="social-icon-item">
+                                        <form action="{% url 'decrease_product_url' %}" method="post">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="product_id" value="{{product.product.id}}">
+                                            <input type="hidden" name="card_id" value="{{card.id}}">
+                                            <button type="submit" class="btn btn-outline-secondary">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-circle" viewBox="0 0 16 16">
+                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
+                                <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"></path>
+                              </svg>
+                                                <span class="visually-hidden">Button</span>
+                                              </button>
+                                        </form>
+                                    </li>
+                                    <li class="social-icon-item">
+                                        <form action="{% url 'delete_product_from_card_url' %}" method="post">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="product_id" value="{{product.product.id}}">
+                                            <input type="hidden" name="card_id" value="{{card.id}}">
+                                            <button type="submit" class="btn btn-outline-danger">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
+                                <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"></path>
+                              </svg>
+                                                <span class="visually-hidden">Button</span>
+                                              </button>
+                                        </form>
+                                    </li>
+                                    <br>
+                                    <br>
+                                </ul>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
             </div>
         </main>
     </body>

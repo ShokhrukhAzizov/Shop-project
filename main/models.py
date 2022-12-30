@@ -49,12 +49,12 @@ class ProductCard(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     card = models.ForeignKey('Card', on_delete=models.CASCADE)
     quantity = models.IntegerField(default=1, blank=True)
-    def save(self, *args, **kwargs):
-        if self.pk is None:
-            card  = self.card
-            card.price +=self.product.price
-            card.save()
-            ProductCard.save(self, *args, **kwargs)
+    # def save(self, *args, **kwargs):
+    #     if self.pk is None:
+    #         card  = self.card
+    #         card.price +=self.product.price
+    #         card.save()
+    #         ProductCard.save(self, *args, **kwargs)
 
 
 class ProductReview(models.Model):
@@ -82,7 +82,8 @@ class ProductReview(models.Model):
 
 class Card(models.Model):
     user = models.ForeignKey(UserModel,on_delete=models.CASCADE)
-    price = models.DecimalField(max_digits=9,decimal_places=2)
+    price = models.DecimalField(max_digits=9,decimal_places=2, null=True, blank=True)
+    # created
     is_active = models.BooleanField(default=True)
 
     def __str__(self):

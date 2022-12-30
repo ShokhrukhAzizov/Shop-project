@@ -159,7 +159,21 @@ def contact_msg(request):
 
 
 def my_cart(request):
-    return render(request,'my_cart.html') 
+    card = Card.objects.filter(user=request.user, is_active=True).last()
+    products = ProductCard.objects.filter(card=card)
+    quantity = 0
+    total_sum = 0
+    for product in products:
+        price = product.product.price * product.quantity
+        total_sum +=price
+        quantity += product.quantity
+    context = {
+        'card':card,
+        'products':products,
+        'total_sum':total_sum,
+        'quantity':quantity
+    }
+    return render(request,'my_cart.html', context) 
 
 def like_content(request):
     pro_id = request.POST['id']
@@ -174,3 +188,53 @@ def like_content(request):
         )
 
         return redirect('product_detail',product.slug)
+
+
+def add_product_to_card(request):
+    product_id = request.POST['product_id']
+    product = Product.objects.get(id=product_id)
+    card = Card.objects.filter(user=request.user).last()
+    if card is None:
+        card = Card.objects.create(user=request.user)
+    product_card_quantity = ProductCard.objects.filter(product=product, card=card).count()
+    if product_card_quantity == 0:
+        product_card = ProductCard.objects.create(card=card, product=product)
+    elif product_card_quantity == 1:
+        product_card = ProductCard.objects.get(card=card, product=product)
+        if product.quantity > 0:
+            product_card.quantity +=1
+            product.quantity -=1
+            product_card.save()
+            product.save()
+        else:
+            pass
+            # masulot yetarlik emas
+    return redirect('my_cart')
+
+def decrease_product(request):
+    product_id = request.POST['product_id']
+    card_id = request.POST['card_id']
+    card = Card.objects.get(id=card_id)
+    product = Product.objects.get(id=product_id)
+    product_card = ProductCard.objects.get(card=card, product=product)
+    if product_card.quantity == 1:
+        product_card.delete()
+    elif product_card.quantity > 1:
+        product_card.quantity -=1
+        product_card.save()
+    product.quantity +=1
+    product.save()
+    return redirect('my_cart')
+
+
+def delete_product_from_card(request):
+    product_id = request.POST['product_id']
+    card_id = request.POST['card_id']
+    card = Card.objects.get(id=card_id)
+    product = Product.objects.get(id=product_id)
+    product_card = ProductCard.objects.get(card=card, product=product)
+    product.quantity += product_card.quantity
+    product.save()
+    product_card.delete()
+    return redirect('my_cart')
+    
